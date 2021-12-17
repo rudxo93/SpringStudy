@@ -54,6 +54,7 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		ModelAndView mav = new ModelAndView("home");
+		mav.addObject("serverTime", formattedDate);
 		
 		return mav;
 	}
