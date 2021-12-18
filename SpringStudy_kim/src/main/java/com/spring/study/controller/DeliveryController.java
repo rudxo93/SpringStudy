@@ -1,8 +1,10 @@
 package com.spring.study.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.study.model.CustomerModel;
@@ -22,5 +24,7 @@ public class DeliveryController {
         // 객체 그대로 전달  customerModel 키값으로 customerModel을 그대로 전달해준다.
 		mav.addObject("customerModel", customerModel );
 		return mav;
-	}}
+	}
+	
+}
 

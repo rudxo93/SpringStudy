@@ -23,6 +23,36 @@
 	
 	<context:component-scan base-package="com.spring.study" />
 	
+	<!-- mybatis 등록하기  -->
+	<!-- xml 문법 상단참고(xmlns:beans)  beans 안에 bean을 쓴다. -->
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="org.mariadb.jdbc.Driver"></beans:property> <!-- value는 DBConnectionMgr안에서의 driver -->
+		<!-- DB주소 DBConnectionMgr 안에 있음-->
+		<beans:property name="url" value="jdbc:mysql://127.0.0.1:8001/kakaoweb?useUnicode=true"></beans:property> 
+		<beans:property name="username" value="root"></beans:property>
+		<beans:property name="password" value="toor"></beans:property>
+	</beans:bean>  <!-- 데이터 소스 객체  -->
+	
+	<!-- 마이바티스 추가하기 setter로 주입-->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> <!-- class객체 가져와서 id 인스턴스 명으로 IOC등록 -->
+		<beans:property name="dataSource" ref="dataSource"></beans:property> <!-- 상단에서 만들어준 데이터소스 주입 /  setter -->
+		<beans:property name="mapperLocations" value="classpath:mappers/*.xml"></beans:property><!-- mapping 주소 추가해주기 -->
+	</beans:bean>
+	
+	<!-- sqlSessionTemplate setter없음 무조건 생성자로 주입 -->
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory"></beans:constructor-arg> <!-- 생성자 -->
+	</beans:bean>
+	
+	<!-- 
+		com.spring.study.model.dao 패키지안에 들어있으면 mapper이다. 
+		Scanner는 위의 component-scan과 같은 역할
+	-->
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--  Dao가 들어있는 경로 -->
+		<beans:property name="basePackage" value="com.spring.study.model.dao"></beans:property>
+	</beans:bean>
+	
 	
 	
 </beans:beans>

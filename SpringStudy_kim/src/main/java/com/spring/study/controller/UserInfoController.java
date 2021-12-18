@@ -21,6 +21,12 @@ public class UserInfoController {
 	@RequestMapping(value = "/insert-data", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String insertData(UserInfoModel userInfoModel) { 
+		
+		System.out.println(userInfoModel.getUser_id());
+		System.out.println(userInfoModel.getUser_password());
+		System.out.println(userInfoModel.getUser_name());
+		System.out.println(userInfoModel.getUser_phone());
+		
 		return userInfoModel.getUser_id() + ", " + userInfoModel.getUser_password() + ", " 
 					+ userInfoModel.getUser_name() + ", " + userInfoModel.getUser_phone();
 	}
