@@ -15,5 +15,35 @@
 		where
 			user_email = #{email}
 	</select>
+	<select id="login" parameterType="com.spring.study.model.dto.UserDto" resultType="Integer">
+		select
+			count(um.user_email) + count(ud.user_email) as result
+		from
+			user_mst um
+			left outer join user_mst ud on(ud.user_email = um.user_email and ud.user_password = #{user_password})
+		where
+			um.user_email = #{user_email}
+	</select>
+	<select id="idCheck" resultType="Integer">
+		select
+			count(user_email) as result
+		from
+			user_mst
+		where
+			user_email = #{user_email}
+	</select>
+	<insert id="signUp" parameterType="com.spring.study.model.dto.UserDto">
+		insert into
+			user_mst
+		values(
+			#{user_email},
+			#{user_passwordl},
+			#{user_name},
+			#{user_phone},
+			now(),
+			now()
+		)		
+	</insert>
+	
 </mapper> 
   
