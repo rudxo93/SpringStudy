@@ -12,5 +12,27 @@
 		where
 			user_email = #{signUpEmail}
 	</select>
+	<select id="phoneCheck" parameterType="com.spring.kakao.model.json.SignUpVo" resultType="Integer">
+		select
+			count(pm.phone_number) + count(um.user_phone) as result
+		from
+			phonenumber_list_mst pm
+			left outer join user_mst um on(um.user_phone = pm.phone_number and um.user_name = pm.phone_user_name)
+		where
+			pm.phone_number = #{signUpPhone}
+			and pm.phone_user_name = #{signUpName}
+	</select>
+	<insert id="signUp"  parameterType="com.spring.kakao.model.json.SignUpVo">
+		insert into
+			user_mst
+		values(
+			#{signUpEmail},
+			#{signUpPassword},
+			#{signUpName},
+			#{signUpPhone},
+			now(),
+			now()
+		)
+	</insert>
 </mapper> 
   

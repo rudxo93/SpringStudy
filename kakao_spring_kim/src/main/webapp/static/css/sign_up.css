@@ -79,19 +79,11 @@ progress {
 	color: red;
 }
 
-.item_msg .msg1{
+.item_msg .errorMsg {
 	display: none;
 }
 
-.item_msg .msg2{
-	display: none;
-}
-
-.item_msg .msg3{
-	display: none;
-}
-
-.item_msg .msg4{
+.item_msg .successMsg {
 	color: green;
 	display: none;
 }
