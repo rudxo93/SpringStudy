@@ -3,7 +3,7 @@ const item_ip = document.querySelectorAll('.item_ip');
 const button_round = document.querySelector('.button_round');
 const btn_g = document.querySelectorAll('.btn_g');
 
-signUpOnLoad(0);
+signUpOnLoad(0); // indexNumber 스타트 지점을 바꿔줄수 있게
 
 var signUpData = {// json데이터 객체 주입
 	signUpEmail: '',
@@ -193,7 +193,7 @@ function nextService(indexNumber) {
 		}
 	}
 }
-
+// 다음 버튼과 엔터를 눌렀을때에 대한 이벤트 처리
 for(let i = 0; i < item_ip.length; i++){
 	item_ip[i].onkeypress = () => {
 		if(window.event.keyCode == 13){
