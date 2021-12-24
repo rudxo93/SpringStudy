@@ -28,10 +28,14 @@
                     </ul>
                     <ul class="ni_info_ul">
                         <li>작성자</li>
-                        <input type="hidden" class="notice_writer" name="notice_writer" value="${login_user.name }">
-                        <li>${login_user.name }</li>
+                        <input type="hidden" class="notice_writer" name="notice_writer" value="${login_user.user_name }">
+                        <li>${login_user.user_name }</li>
                         <li>작성일</li>
                         <li><fmt:formatDate value="${now }" pattern="yyyy-MM-dd"/></li>
+                    </ul>
+                    <ul class="ni_file_ul">
+                        <li class="ni_file_li">첨부파일</li>
+                        <li><input type="file" multiple="multiple"  name="file"></li>
                     </ul>
                     <ul class="ni_content_ul">
                         <li>

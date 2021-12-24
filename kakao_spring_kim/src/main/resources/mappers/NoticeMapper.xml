@@ -11,6 +11,7 @@
 			notice_writer,
 			notice_date,
 			notice_count,
+			NULL,
 			'0'
 		from
 			notice_mst

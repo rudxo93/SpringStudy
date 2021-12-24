@@ -101,19 +101,11 @@ main {
 	font-weight: 600;
 }
 
-.item_msg .msg1{
+.item_msg .emailErrorMsg{
 	display: none;
 }
 
-.item_msg .msg2{
-	display: none;
-}
-
-.item_msg .msg3{
-	display: none;
-}
-
-.item_msg .msg4{
+.item_msg .passwordErrorMsg{
 	display: none;
 }
 

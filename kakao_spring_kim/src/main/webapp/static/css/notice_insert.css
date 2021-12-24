@@ -48,6 +48,19 @@ main li {
     width: 100%;
 }
 
+.ni_file_ul li input {
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    width: 598px;
+    height: 100%;
+    padding: 0px 10px;
+}
+
+.ni_file_ul .ni_file_li {
+    width: 200px;
+}
+
 .ni_content_ul textarea {
     border-collapse: collapse;
     box-sizing: border-box;

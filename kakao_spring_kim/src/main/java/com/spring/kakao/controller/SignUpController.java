@@ -1,7 +1,12 @@
 package com.spring.kakao.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.kakao.model.dto.UserDto;
 import com.spring.kakao.model.json.SignUpVo;
 import com.spring.kakao.service.UserService;
 
@@ -19,8 +25,21 @@ public class SignUpController {
 	private UserService userService;
 
 	@RequestMapping(value = "/sign-up", method = RequestMethod.GET)
-	public ModelAndView SignUpIndex() {
-		return new ModelAndView("signUp/sign_up");
+	public String SignUpIndex(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) { // 무시
+			for (Cookie c : cookies) {
+				if(c.getName().equals("user_email")) {
+					UserDto userDto = userService.getUser(c.getValue()); // email값
+					session.setAttribute("login_user", userDto);
+				}
+			}
+		} 
+		if(session.getAttribute("login_user") != null) {
+			return "redirect:index";
+		}
+		return"signUp/sign_up";
 	}
 	
 	@RequestMapping(value = "/sign-up-emailCheck", method = RequestMethod.POST)
