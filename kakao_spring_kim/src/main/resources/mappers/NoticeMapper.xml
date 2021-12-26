@@ -18,5 +18,39 @@
 		order by
 			notice_code desc
 	</select>
+	
+	<select id="getNoticeMaxCode" resultType="Integer">
+		select
+			max(notice_code)
+		from
+			notice_mst;
+	</select>
+	
+	<insert id="noticeMstInsert" parameterType="com.spring.kakao.model.dto.NoticeDto">
+		insert into
+			notice_mst
+		values(
+			#{notice_code},
+			#{notice_title},
+		 	#{notice_writer},
+		 	now(),
+		 	0,
+		 	new(),
+		 	now()
+		)
+	</insert>
+	
+	<insert id="noticeDtlInsert" parameterType="com.spring.kakao.model.dto.NoticeDto">
+		insert into
+			notice_dtl
+		values(
+			#{notice_code},
+			#{notice_content},
+			#{originFileNames},
+			#{tempFileNames},
+			now(),
+			now()
+		)
+	</insert>
 </mapper> 
   

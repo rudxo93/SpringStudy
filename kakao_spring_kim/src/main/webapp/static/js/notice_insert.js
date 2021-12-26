@@ -1,4 +1,30 @@
 const notice_submit = document.querySelector(".notice_submit");
+const insert_form = document.querySelector("#insert_form");
+
+function noticeInsert(){
+	let formData = new FormData(insert_form);	
+	
+	$.ajax({
+		type: "post",
+		url: "notice-insert",
+		enctype: "multipart/form-data",
+		processData: false,
+		contentType: false,
+		data: formData,
+		success: function(data){
+			if(data == 0){ // 실패
+				alert('공지사항 등록에 실패하였습니다.');
+				location.href = 'notice?pageNumber=1';
+			} else {
+				alert('공지사항 등록이 완료되었습니다.'); 
+				location.href = 'notice-dtl?noticeCode=' + data; // 작성한 게시글의 dtl로 전달
+			}
+		},
+		error: function(){
+			alert("전송 실패");
+		}
+	})
+}
 
 notice_submit.onclick = () => {
 	const notice_title = document.querySelector(".notice_title");
@@ -11,7 +37,6 @@ notice_submit.onclick = () => {
 	}else if(notice_content.value.length == 0){
 		alert("공지사항 내용을 입력해 주세요.");
 	}else {
-		const notice_form = document.querySelector("form");
-		notice_form.submit();
+		noticeInsert();
 	}
 }
