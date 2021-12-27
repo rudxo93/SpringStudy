@@ -2,22 +2,22 @@ const notice_submit = document.querySelector(".notice_submit");
 const insert_form = document.querySelector("#insert_form");
 
 function noticeInsert(){
-	let formData = new FormData(insert_form);	
-	
+	let formData = new FormData(insert_form);
+
 	$.ajax({
 		type: "post",
 		url: "notice-insert",
 		enctype: "multipart/form-data",
+		data: formData,
 		processData: false,
 		contentType: false,
-		data: formData,
 		success: function(data){
 			if(data == 0){ // 실패
 				alert('공지사항 등록에 실패하였습니다.');
 				location.href = 'notice?pageNumber=1';
-			} else {
-				alert('공지사항 등록이 완료되었습니다.'); 
-				location.href = 'notice-dtl?noticeCode=' + data; // 작성한 게시글의 dtl로 전달
+			}else{
+				alert('공지사항 등록이 완료되었습니다.');
+				location.href = 'notice-dtl?notice_code=' + data; // 작성한 게시글의 dtl로 전달
 			}
 		},
 		error: function(){

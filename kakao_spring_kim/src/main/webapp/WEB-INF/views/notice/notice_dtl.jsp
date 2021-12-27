@@ -18,6 +18,7 @@
         <main>
             <div class="notice_dtl_main">
             	<input type="hidden" id="notice_code" name="notice_code" value="${notice.notice_code }">
+            	
                 <ul class="nd_header_ul">
                     <li>${notice.notice_title }</li>
                 </ul>
@@ -34,32 +35,46 @@
                         <pre>${notice.notice_content }</pre>
                     </li>
                 </ul>
+                <ul>
+                	<li>첨부파일</li>
+                </ul>
+                 <ul>
+                	<li>
+                		<c:forEach var="fileBean" items="${fileList }" varStatus="st">
+                			<a href="file-download?originFileName=${fileBean.originFileName }&tempFileName=${fileBean.tempFileName }">
+                				${fileBean.originFileName }
+                			</a>
+                			<c:if test="${not st.last }">
+                				/
+                			</c:if>
+                		</c:forEach>
+                	</li>
+                </ul>
             </div>
             <div class="notice_dtl_footer">
                 <div class="nd_footer_buttons">
                     <button type="button" class="notice_list_button">목록</button>
                     
                     <c:set var="admin_id" value="admin"></c:set>
-            		<c:set var="admin_user" value="${login_user.id }"></c:set>
-            	
-            		<c:if test="${admin_id eq admin_user}"> <!-- admin이라면 수정과 삭제 버튼을 보여준다. -->
+	            	<c:set var="admin_user" value="${login_user.user_email }"></c:set>
+	            	
+	           		<c:if test="${admin_id eq admin_user or notice.notice_writer eq login_user.user_name }"> <!-- admin이라면 수정과 삭제 버튼을 보여준다. -->
                     	<button type="button" class="notice_update_button">수정</button>
                     	<button type="button" class="notice_delete_button">삭제</button>
                     </c:if>
-                    
                 </div>
                 <div class="nd_footer_pre_next">
                 	<ul class="nd_footer_next">
                         <li class="next_title">다음 글</li>
-                        <c:if test="${notice.nextNotice_code ne 0 }">
-                        	<a href="notice-dtl?code=${notice.nextNotice_code }"><li>${notice.nextNotice_title }</li></a>
+                        <c:if test="${notice.nextNotice_code ne 0}">
+                        	<a href="notice-dtl?notice_code=${notice.nextNotice_code }"><li>${notice.nextNotice_title }</li></a>
                         </c:if>
                     </ul>
                     <ul class="nd_footer_pre">
                         <li class="pre_title">이전 글</li>
-                        <c:if test="${notice.preNotice_code ne 0 }">
-                        	<a href="notice-dtl?code=${notice.preNotice_code }"><li>${notice.preNotice_title }</li></a>
-                        </c:if>
+                        <c:if test="${notice.preNotice_code ne 0}">
+                        	<a href="notice-dtl?notice_code=${notice.preNotice_code }"><li>${notice.preNotice_title }</li></a>
+                    	</c:if>
                     </ul>
                 </div>
             </div>
