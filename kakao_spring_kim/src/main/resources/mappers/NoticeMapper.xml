@@ -32,11 +32,11 @@
 		values(
 			#{notice_code},
 			#{notice_title},
-		 	#{notice_writer},
-		 	now(),
-		 	0,
-		 	new(),
-		 	now()
+			#{notice_writer},
+			now(),
+			0,
+			now(),
+			now()
 		)
 	</insert>
 	
