@@ -13,4 +13,9 @@ public class PageController {
 		return "hello";
 	}
 	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String loginIndex(Model model) {
+		return "login";
+	}
+	
 }
