@@ -27,7 +27,8 @@
 				url: "login-submit/" + loginid + "/" + loginpassword,
 				dataType: "text",
 				success: function(data){
-					alert(data);
+					let loginData = JSON.parse(data);
+					alert(loginData.loginFalg);
 				},
 				error: function(){
 					alery('요청실패');

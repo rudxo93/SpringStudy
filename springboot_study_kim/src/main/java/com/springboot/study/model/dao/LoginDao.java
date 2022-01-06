@@ -10,3 +10,4 @@ public interface LoginDao {
 	public int login(Login login);
 
 }
+ 

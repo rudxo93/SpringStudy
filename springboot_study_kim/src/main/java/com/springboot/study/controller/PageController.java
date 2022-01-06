@@ -2,18 +2,17 @@ package com.springboot.study.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class PageController {
 
-	@RequestMapping(value = "hello", method = RequestMethod.GET)
+	@GetMapping("dtl")
 	public String helloIndex(Model model) {
 		return "hello";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@GetMapping("login")
 	public String loginIndex(Model model) {
 		return "login";
 	}
