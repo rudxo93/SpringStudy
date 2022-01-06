@@ -6,7 +6,7 @@ function noticeInsert(){
 
 	$.ajax({
 		type: "post",
-		url: "notice/insert",
+		url: "/notice/insert",
 		enctype: "multipart/form-data",
 		data: formData,
 		processData: false,
@@ -14,10 +14,10 @@ function noticeInsert(){
 		success: function(data){
 			if(data == 0){ // 실패
 				alert('공지사항 등록에 실패하였습니다.');
-				location.href = 'notice/list/1';
+				location.href = '/notice/list/1';
 			}else{
 				alert('공지사항 등록이 완료되었습니다.');
-				location.href = 'notice/' + data; // 작성한 게시글의 dtl로 전달
+				location.href = '/notice/' + data; // 작성한 게시글의 dtl로 전달
 			}
 		},
 		error: function(){

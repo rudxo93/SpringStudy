@@ -6,6 +6,7 @@ import com.springboot.kakao.model.beans.FileBean;
 import com.springboot.kakao.model.beans.NoticeBean;
 import com.springboot.kakao.model.dto.NoticeDto;
 import com.springboot.kakao.model.dto.NoticeInsertDto;
+import com.springboot.kakao.model.dto.NoticeUpdateDto;
 
 public interface NoticeService {
 	
@@ -21,5 +22,6 @@ public interface NoticeService {
 	public List<FileBean> getFileList(NoticeDto noticeDto); // 첨부 파일 가져오기
 	public byte[] fileDownload(FileBean fileBean); // 파일 다운로드하기
 	public int noticeDelete(String notice_code); // 게시글 삭제하기
+	public int noticeUpdate(NoticeUpdateDto noticeUpdateDto); // 게시글 수정하기(update)
 	
 }

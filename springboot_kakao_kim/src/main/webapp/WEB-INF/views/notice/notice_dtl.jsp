@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,9 +8,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>뉴스</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/mainNav.css">
-    <link rel="stylesheet" href="css/notice_dtl.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/mainNav.css">
+    <link rel="stylesheet" href="/css/notice_dtl.css">
 </head>
 <body>
     <div class="container">
@@ -51,14 +51,14 @@
                 	</li>
                 </ul>
             </div>
-            <div class="notice_dtl_footer">
+             <div class="notice_dtl_footer">
                 <div class="nd_footer_buttons">
                     <button type="button" class="notice_list_button">목록</button>
                     
-                    <c:set var="admin_id" value="admin"></c:set>
+                   <c:set var="admin_id" value="admin"></c:set>
 	            	<c:set var="admin_user" value="${login_user.user_email }"></c:set>
 	            	
-	           		<c:if test="${admin_id eq admin_user or notice.notice_writer eq login_user.user_name }"> <!-- admin이라면 수정과 삭제 버튼을 보여준다. -->
+	           		<c:if test="${admin_id eq admin_user or notice.notice_writer eq login_user.user_name }">
                     	<button type="button" class="notice_update_button">수정</button>
                     	<button type="button" class="notice_delete_button">삭제</button>
                     </c:if>
@@ -84,6 +84,6 @@
         </footer>
     </div>
     <script src="https://kit.fontawesome.com/c3df4d7d1c.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="js/notice_dtl.js"></script>
+    <script type="text/javascript" src="/js/notice_dtl.js"></script>
 </body>
 </html>

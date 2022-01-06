@@ -19,6 +19,7 @@ import com.springboot.kakao.model.beans.FileBean;
 import com.springboot.kakao.model.beans.NoticeBean;
 import com.springboot.kakao.model.dto.NoticeDto;
 import com.springboot.kakao.model.dto.NoticeInsertDto;
+import com.springboot.kakao.model.dto.NoticeUpdateDto;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -212,6 +213,48 @@ public class NoticeServiceImpl implements NoticeService {
 			}
 		}
 		return result;
+	}
+	
+	public StringBuilder deleteFileName(String[] fileNames, String[] deleteFileNames) { // 기존에 있던것들중 지우는 작업
+		StringBuilder buildName = new StringBuilder();
+		// fileNames = 첨부파일이 없는 게시글
+		if(fileNames != null) { // 첨부파일이 존재한다.
+			for(String fileName : fileNames) {
+				int count = 0; // 초기화
+				if(deleteFileNames != null) { // 지우고자 하는 파일이 null이 아니라면 => 지울것이 있다!
+					for(String deleteFileName : deleteFileNames) {// 지우고자 하는 파일이 반복하면서
+						if(fileName.equals(deleteFileName)) { // fileName과 deleteFileName과 같다면
+							count++; // 카운터 1증가
+							break; // 탈출!
+						}
+					}
+				}
+				if(count == 0) { // 카운터가 0이라면 append한다.
+					buildName.append(fileName);
+					buildName.append(",");
+				}
+			}
+		}
+		
+		return buildName;
+	}
+	
+	public NoticeDto fileUpdate(NoticeUpdateDto noticeUpdateDto) {
+		
+		NoticeDto noticeDto = new NoticeDto();
+		 
+		StringBuilder originNames = deleteFileName(noticeUpdateDto.getOriginFileNames(), noticeUpdateDto.getDeleteOriginFileNames());
+		StringBuilder tempNames = deleteFileName(noticeUpdateDto.getTempFileNames(), noticeUpdateDto.getDeleteTempFileNames());
+		
+		return noticeDto;
+	}
+	
+	@Override
+	public int noticeUpdate(NoticeUpdateDto noticeUpdateDto) { // insert와 동일한 방식
+		
+		NoticeDto noticeDto = fileUpdate(noticeUpdateDto); // 위에서 만들어진 noticeDto를 받는다.
+		
+		return 0;
 	}
 	
 }

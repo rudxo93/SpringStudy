@@ -19,7 +19,7 @@ public class IndexController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(value = "index", method = RequestMethod.GET)
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) { // 무시

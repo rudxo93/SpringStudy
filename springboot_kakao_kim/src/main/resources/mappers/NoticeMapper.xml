@@ -95,6 +95,18 @@
 		where
 			notice_code = #{notice_code};
 	</delete>
+	 
+	<update id="noticeUpdate" parameterType="com.springboot.kakao.model.dto.NoticeDto">
+		update
+			notice_dtl
+		set
+			notice_content = #{notice_content},
+			originFileNames = #{originFileNames},
+			tempFileNames = #{tempFileNames},
+			update_date = now()
+		where
+			notice_code = #{notice_code};
+	</update>
 	
 	<delete id="noticeDtlDelete">
 		delete

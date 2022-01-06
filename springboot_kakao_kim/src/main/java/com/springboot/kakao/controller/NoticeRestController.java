@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,25 +26,26 @@ import org.springframework.web.servlet.ModelAndView;
 import com.springboot.kakao.model.beans.FileBean;
 import com.springboot.kakao.model.dto.NoticeDto;
 import com.springboot.kakao.model.dto.NoticeInsertDto;
+import com.springboot.kakao.model.dto.NoticeUpdateDto;
 import com.springboot.kakao.model.dto.UserDto;
 import com.springboot.kakao.service.NoticeService;
 import com.springboot.kakao.service.UserService;
 
 @RestController
-@RequestMapping("notice")
+@RequestMapping("/notice")
 public class NoticeRestController {
 	
 	@Autowired
 	private NoticeService noticeService;
 
-	@PostMapping("insert")
+	@PostMapping("/insert")
 	public String noticeInsert(NoticeInsertDto noticeInsertDto) {
 		int insertFlag = 0;
 		insertFlag = noticeService.noticeInsert(noticeInsertDto);
 		return Integer.toString(insertFlag);
 	}
 	
-	@GetMapping("file-download/{originFileName}") // 어떤 파일을 다운받는지 명확하게 보여주기 위해서
+	@GetMapping("/file-download/{originFileName}") // 어떤 파일을 다운받는지 명확하게 보여주기 위해서
 	public byte[] noticeDtlFileDownload(HttpServletResponse response,
 										@PathVariable String originFileName,
 										@RequestParam String tempFileName) {
@@ -64,5 +66,11 @@ public class NoticeRestController {
 		response.setContentLength(fileData.length);
 		
 		return fileData;
+	}
+	
+	@PutMapping("/update/{code}")
+	public String noticeUpdate(@PathVariable int code, NoticeUpdateDto noticeUpdateDto) {
+		System.out.println(noticeUpdateDto);
+		return "1";
 	}
 }
