@@ -62,7 +62,7 @@ public class NoticeController {
 		model.addAttribute("now", date);
 		return "notice/notice_insert";
 	}
-	
+	 
 	@GetMapping("/{code}")
 	public String noticeDtlIndex(Model model, @PathVariable String code) {
 		NoticeDto noticeDto = noticeService.getNotice(code);

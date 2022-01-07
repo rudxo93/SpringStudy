@@ -246,6 +246,42 @@ public class NoticeServiceImpl implements NoticeService {
 		StringBuilder originNames = deleteFileName(noticeUpdateDto.getOriginFileNames(), noticeUpdateDto.getDeleteOriginFileNames());
 		StringBuilder tempNames = deleteFileName(noticeUpdateDto.getTempFileNames(), noticeUpdateDto.getDeleteTempFileNames());
 		
+		MultipartFile[] multipartFiles = noticeUpdateDto.getNotice_file(); // 새로 추가할 파일
+		String filePath = context.getRealPath("/static/fileUpload");
+		
+		for(MultipartFile multipartFile : multipartFiles) {
+			String originFile = multipartFile.getOriginalFilename();
+			if(originFile.equals("")) { // 공백이면 = 새로 추가할 파일이 없다.
+				break;
+			}
+			
+			String originFileExtension = originFile.substring(originFile.lastIndexOf(".")); // 확장자 짜르기
+			String tempFile = UUID.randomUUID().toString().replaceAll("-", "") + originFileExtension; // - 을 공백으로
+			
+			originNames.append(originFile); // db에 넣을 파일명 완성시키기
+			originNames.append(",");
+			tempNames.append(tempFile);
+			tempNames.append(",");
+			
+			File file = new File(filePath, tempFile); // 경로에 tempFile 추가
+			if(!file.exists()) { // 디렉토리가 있는지 검사
+				file.mkdirs(); // 하위경로 모두 다 포함해서 만들어라
+			}
+			
+			try {
+				multipartFile.transferTo(file); // 파일 객체로  변환
+			} catch (IllegalStateException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(originNames.length() != 0) { // 파일이 있다면
+			originNames.delete(originNames.length() - 1, originNames.length());
+			tempNames.delete(tempNames.length() - 1, tempNames.length());
+			
+			noticeDto.setOriginFileNames(originNames.toString());
+			noticeDto.setTempFileNames(tempNames.toString());
+		}
+		
 		return noticeDto;
 	}
 	
@@ -253,8 +289,20 @@ public class NoticeServiceImpl implements NoticeService {
 	public int noticeUpdate(NoticeUpdateDto noticeUpdateDto) { // insert와 동일한 방식
 		
 		NoticeDto noticeDto = fileUpdate(noticeUpdateDto); // 위에서 만들어진 noticeDto를 받는다.
+		noticeDto.setNotice_code(noticeUpdateDto.getNotice_code());
+		noticeDto.setNotice_content(noticeUpdateDto.getNotice_content());
 		
-		return 0;
+		int result = noticeDao.noticeUpdate(noticeDto);
+		if(result == 1 && noticeUpdateDto.getDeleteOriginFileNames() !=null) { // 쿼리문이 제대로 실행됨 => update가 되었다. && 지울 항목이 있다면 실행
+			String filePath = context.getRealPath("/static/fileUpload");
+			for(String fileName : noticeUpdateDto.getDeleteTempFileNames()) { 
+				File file = new File(filePath, fileName);
+				if(file.exists()) { // 파일 객체가 존재한다면
+					file.delete();
+				}
+			}
+		}
+		return result;
 	}
 	
 }

@@ -70,7 +70,10 @@ public class NoticeRestController {
 	
 	@PutMapping("/update/{code}")
 	public String noticeUpdate(@PathVariable int code, NoticeUpdateDto noticeUpdateDto) {
-		System.out.println(noticeUpdateDto);
-		return "1";
+		
+		int updateFlag = 0;
+		updateFlag = noticeService.noticeUpdate(noticeUpdateDto);
+		
+		return Integer.toString(updateFlag);
 	}
 }

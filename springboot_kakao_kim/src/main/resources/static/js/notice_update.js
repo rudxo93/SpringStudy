@@ -32,7 +32,11 @@ function noticeUpdate(){
 		processData: false,
 		contentType: false,
 		success: function(data){
-			
+			if(data == '1'){
+				location.href = '/notice/' + formData.get('notice_code'); // 해당 게시글로 다시 보내기
+			} else { // 0이라면
+				alert('수정 실패!');
+			}
 		},
 		error: function(){
 			alert('전송 실패!');

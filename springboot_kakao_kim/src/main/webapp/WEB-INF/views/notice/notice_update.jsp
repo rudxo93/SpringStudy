@@ -42,7 +42,7 @@
                     </ul>
                     <ul>
                         <li class="nd-file-ip">
-                            <input type="file" multiple="multiple" id="notice_file">
+                            <input type="file" multiple="multiple" name="notice_file">
                         </li>
                     </ul>
                     <ul>
