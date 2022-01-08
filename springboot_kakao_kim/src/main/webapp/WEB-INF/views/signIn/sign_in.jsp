@@ -67,7 +67,7 @@
                         <button class="item_btn btn_qr"><i class="fas fa-qrcode"></i>&nbsp; QR코드 로그인</button>
                     </div>
                     <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                    <a href="#" onclick="signOut();">Sign out</a>
+                    
                     <div class="info_user">
                         <a href="signUp">회원가입</a>
                         <div>
@@ -101,6 +101,7 @@
     			let gauth =  gapi.auth2.init({
     				client_id: '413497891921-mmvqinbjnc7es0vbp22o96tqeq35apu5.apps.googleusercontent.com'
     			}); // function init과 다르다
+    			/*
     			gauth.then(
     				function(){
     					if(gauth.isSignedIn.get()){
@@ -113,27 +114,82 @@
     					alert('로그인 실패');
     				}
     			)
+    			*/
+    		})
+    	}
+    	
+    	function signIn(profileObj){
+    		$.ajax({
+    			type: "post",
+    			url: "/oauth2/signup", 
+    			data: JSON.stringify(profileObj),
+    			dataType: "text",
+    			contentType: "application/json;charset=UTF-8",
+    			success: function(data){
+    				if(data == '1'){ // 로그인 성공했으면 1을 반환
+    					alert("로그인 성공");
+    					location.href ="/index";
+    					
+    				}
+    			},
+    			error: function(){
+    				alert('회원가입 데이터 전송 실패');
+    			}
+    		})
+    	}
+    	
+    	function signUp(profileObj){
+    		$.ajax({
+    			type: "post",
+    			url: "/oauth2/signup", 
+    			data: JSON.stringify(profileObj),
+    			dataType: "text",
+    			contentType: "application/json;charset=UTF-8",
+    			success: function(data){// 정상적으로 회원가입이 됨
+    				if(data == '1'){
+    					// 로그인
+    					signIn(profileObj);
+    				}
+    			},
+    			error: function(){
+    				alert('회원가입 데이터 전송 실패');
+    			}
+    		})
+    	}
+    	
+    	function signUpCheck(profileObj){
+    		$.ajax({
+    			type: 'post',
+    			url: '/oauth2/signupcheck',
+    			data: JSON.stringify(profileObj),
+    			dataType: "text",
+    			contentType: "application/json; charset=UTF-8",
+    			success: function(data){
+    				if(data == '0'){ // 0이라면 회원가입 필요
+    					signUp(profileObj);
+    				} else { // 로그인
+    					signIn(profileObj);
+    				}
+    			},
+    			error: function(){
+    				alert('전송오류!');
+    			}
+    				
     		})
     	}
     	
 	    function onSignIn(googleUser) { // 로그인 성공 시 프로필 들고온다,
 	    	var profile = googleUser.getBasicProfile();
-	    	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-	    	console.log('Name: ' + profile.getName());
-	    	console.log('Image URL: ' + profile.getImageUrl());
-	    	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	    	let profileObj = { // 객체 생성
+	    			signUpEmail: profile.getEmail(),
+	    			emailFlag: 1,
+	    			signUpPassword: '',
+	    			signUpName: profile.getName(),
+	    			signUpPhone: '',
+	    			phoneFlag: 1
+	    	};
+	    	signUpCheck(profileObj);
 	    }
-	    
-	    function onSignInFailuer(t){ // 아예 sign자체가 실패했을때
-	    	console.log(t);
-	    }
-	    
-		function signOut() {
-			var auth2 = gapi.auth2.getAuthInstance();
-		    auth2.signOut().then(function () {
-		    	console.log('User signed out.');
-		    });
-		}
 	</script>
 
 	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>

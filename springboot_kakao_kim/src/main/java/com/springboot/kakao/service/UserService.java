@@ -14,5 +14,6 @@ public interface UserService {
 	public int signIn(SignInVo signInVo);
 	public UserDto getUser(String user_email);
 	public Cookie setUserCookie(String user_email); // 쿠키
+	public int oAuthSignUp(SignUpVo signUpVo); // OAuth2로 회원가입시키기
 	
 }

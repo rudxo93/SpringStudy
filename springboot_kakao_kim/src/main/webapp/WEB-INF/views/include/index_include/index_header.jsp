@@ -22,9 +22,32 @@
         	<c:otherwise>
         		<ul class="nav_user">
 		            <a href="/mypage"><li><i class="fas fa-user-circle"></i> ${login_user.user_email }<span>${emailAddress }</span></li></a>
-		            <a href="/logout"><li><i class="fas fa-sign-out-alt"></i></li></a>
+		            <a class="logout"><li><i class="fas fa-sign-out-alt"></i></li></a>
 		        </ul>
         	</c:otherwise>
         </c:choose>
     </div>
 </header>
+<script type="text/javascript">
+		const logout = document.querySelector('.logout');
+		logout.onclick = () => {
+			signOut();
+			location.href = '/logout';
+		}
+
+    	function init(){
+    		gapi.load('auth2', function(){ // 무명함수
+    			let gauth =  gapi.auth2.init({
+    				client_id: '413497891921-mmvqinbjnc7es0vbp22o96tqeq35apu5.apps.googleusercontent.com'
+    			});
+    		})
+    	}
+	    
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		    	alert('User signed out.');
+		    });
+		}
+	</script>
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> 
