@@ -281,7 +281,7 @@ public class NoticeServiceImpl implements NoticeService {
 			noticeDto.setOriginFileNames(originNames.toString());
 			noticeDto.setTempFileNames(tempNames.toString());
 		}
-		
+		 
 		return noticeDto;
 	}
 	

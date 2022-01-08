@@ -23,5 +23,5 @@ public interface NoticeService {
 	public byte[] fileDownload(FileBean fileBean); // 파일 다운로드하기
 	public int noticeDelete(String notice_code); // 게시글 삭제하기
 	public int noticeUpdate(NoticeUpdateDto noticeUpdateDto); // 게시글 수정하기(update)
-	
+	  
 }

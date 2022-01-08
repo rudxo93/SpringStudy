@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sign_in.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="413497891921-mmvqinbjnc7es0vbp22o96tqeq35apu5.apps.googleusercontent.com">
 </head>
 <body>
     <div class="container">
@@ -64,6 +66,8 @@
                         </div>
                         <button class="item_btn btn_qr"><i class="fas fa-qrcode"></i>&nbsp; QR코드 로그인</button>
                     </div>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <a href="#" onclick="signOut();">Sign out</a>
                     <div class="info_user">
                         <a href="signUp">회원가입</a>
                         <div>
@@ -91,5 +95,51 @@
     </div>
     <script src="js/sign_in.js"></script>
     <script src="https://kit.fontawesome.com/c3df4d7d1c.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    	function init(){
+    		gapi.load('auth2', function(){ // 무명함수
+    			let gauth =  gapi.auth2.init({
+    				client_id: '413497891921-mmvqinbjnc7es0vbp22o96tqeq35apu5.apps.googleusercontent.com'
+    			}); // function init과 다르다
+    			gauth.then(
+    				function(){
+    					if(gauth.isSignedIn.get()){
+    						alert('로그인 중');
+    					} else {
+    						alert()
+    					}
+    				},
+    				function(){
+    					alert('로그인 실패');
+    				}
+    			)
+    		})
+    	}
+    	
+	    function onSignIn(googleUser) { // 로그인 성공 시 프로필 들고온다,
+	    	var profile = googleUser.getBasicProfile();
+	    	console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	    	console.log('Name: ' + profile.getName());
+	    	console.log('Image URL: ' + profile.getImageUrl());
+	    	console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	    }
+	    
+	    function onSignInFailuer(t){ // 아예 sign자체가 실패했을때
+	    	console.log(t);
+	    }
+	    
+		function signOut() {
+			var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		    	console.log('User signed out.');
+		    });
+		}
+	</script>
+
+	<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 </body>
 </html>
+
+
+
+
