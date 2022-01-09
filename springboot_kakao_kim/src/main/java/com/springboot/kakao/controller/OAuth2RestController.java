@@ -30,7 +30,7 @@ public class OAuth2RestController {
 	@PostMapping("/signup")
 	public String signUp(@RequestBody SignUpVo signUpVo) {
 		
-		int result = userService.signUp(signUpVo);
+		int result = userService.oAuthSignUp(signUpVo);
 		
 		return Integer.toString(result);
 	}

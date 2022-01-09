@@ -121,7 +121,7 @@
     	function signIn(profileObj){
     		$.ajax({
     			type: "post",
-    			url: "/oauth2/signup", 
+    			url: "/oauth2/signin", 
     			data: JSON.stringify(profileObj),
     			dataType: "text",
     			contentType: "application/json;charset=UTF-8",
