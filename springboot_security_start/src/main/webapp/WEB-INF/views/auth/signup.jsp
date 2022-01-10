@@ -36,6 +36,7 @@
 					data: signupObj,
 					dataType: "text",
 					success: function(data){
+						/*
 						let respObj = JSON.parse(data);
 						if(respObj.code == 400){
 							alert('오류코드: ' + respObj.code +
@@ -52,6 +53,7 @@
 							alert(respObj.msg);
 							location.href = '/auth/signin';
 						}
+						*/
 					},
 					error: function(){
 						alert("전송 오류!");
