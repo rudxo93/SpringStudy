@@ -23,6 +23,6 @@ spring:
       name: test
       password: 1234   
 
-#mybatis:
-#  mapper-locations:
-#  - /mapperss/*.xml
+mybatis:
+  mapper-locations:
+  - /mappers/*.xml
